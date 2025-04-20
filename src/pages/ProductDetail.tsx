@@ -1,18 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon, ChevronRightIcon, WhatsappIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import toast from 'react-hot-toast';
-
-interface Product {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  type: string;
-  images: string[];
-  isNew: boolean;
-}
+import { Product } from '../types';
 
 const ProductDetail = () => {
   const { id } = useParams();
