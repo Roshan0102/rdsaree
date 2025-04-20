@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Check admin status whenever the component renders and when localStorage changes
   useEffect(() => {
@@ -33,91 +34,161 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setIsAdmin(false);
+    setIsMobileMenuOpen(false);
     toast.success('Logged out successfully');
     navigate('/');
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <div className="bg-base-100 shadow-md sticky top-0 z-50">
-      <div className="navbar container mx-auto px-4">
-        <div className="navbar-start">
-          <div className="dropdown md:hidden">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-              </svg>
-            </label>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><Link to="/" className="hover:text-primary">Home</Link></li>
-              <li><Link to="/products" className="hover:text-primary">Products</Link></li>
-              <li><Link to="/about" className="hover:text-primary">About</Link></li>
-              <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
-              {isAdmin && (
-                <li>
-                  <Link 
-                    to="/admin/dashboard" 
-                    className="text-primary font-semibold hover:bg-primary hover:text-white"
-                  >
-                    Manage Products
-                  </Link>
-                </li>
-              )}
-              <li>
-                {isAdmin ? (
-                  <button onClick={handleLogout} className="hover:text-primary">
-                    Logout
-                  </button>
-                ) : (
-                  <Link to="/admin/login" className="hover:text-primary">
-                    Admin Login
-                  </Link>
-                )}
-              </li>
-            </ul>
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link to="/" onClick={closeMobileMenu}>
+              <img 
+                src="https://i.postimg.cc/fWXHdJcM/IMG-20250411-002449.jpg" 
+                alt="RD Saree Collections Logo" 
+                className="h-12 w-auto"
+              />
+            </Link>
           </div>
-          <Link to="/" className="flex items-center">
-            <img 
-              src="https://i.postimg.cc/fWXHdJcM/IMG-20250411-002449.jpg" 
-              alt="RD Saree Collections Logo" 
-              className="h-12 w-auto object-contain"
-            />
-          </Link>
-        </div>
-        <div className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal px-1 gap-2">
-            <li><Link to="/" className="hover:text-primary transition-colors duration-300">Home</Link></li>
-            <li><Link to="/products" className="hover:text-primary transition-colors duration-300">Products</Link></li>
-            <li><Link to="/about" className="hover:text-primary transition-colors duration-300">About</Link></li>
-            <li><Link to="/contact" className="hover:text-primary transition-colors duration-300">Contact</Link></li>
-          </ul>
-        </div>
-        <div className="navbar-end hidden md:flex">
-          {isAdmin ? (
-            <div className="flex items-center gap-2">
+
+          {/* Mobile menu button */}
+          <div className="flex items-center md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none"
+            >
+              <svg
+                className="h-6 w-6"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Desktop menu */}
+          <div className="hidden md:flex md:items-center md:space-x-4">
+            <Link to="/" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+              Home
+            </Link>
+            <Link to="/products" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+              Products
+            </Link>
+            <Link to="/about" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+              About
+            </Link>
+            <Link to="/contact" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+              Contact
+            </Link>
+            {isAdmin ? (
+              <>
+                <Link 
+                  to="/admin/dashboard"
+                  className="text-white bg-primary hover:bg-primary-dark px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Manage Products
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
               <Link 
-                to="/admin/dashboard" 
-                className="btn btn-primary btn-sm rounded-full px-4 hover:scale-105 transition-transform duration-300"
+                to="/admin/login"
+                className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Admin Login
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white border-t border-gray-200`}>
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          <Link
+            to="/"
+            onClick={closeMobileMenu}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          >
+            Home
+          </Link>
+          <Link
+            to="/products"
+            onClick={closeMobileMenu}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          >
+            Products
+          </Link>
+          <Link
+            to="/about"
+            onClick={closeMobileMenu}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            onClick={closeMobileMenu}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          >
+            Contact
+          </Link>
+          {isAdmin ? (
+            <>
+              <Link
+                to="/admin/dashboard"
+                onClick={closeMobileMenu}
+                className="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary hover:bg-primary-dark"
               >
                 Manage Products
               </Link>
-              <button 
+              <button
                 onClick={handleLogout}
-                className="btn btn-ghost btn-sm rounded-full hover:scale-105 transition-transform duration-300"
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
               >
                 Logout
               </button>
-            </div>
+            </>
           ) : (
-            <Link 
-              to="/admin/login" 
-              className="btn btn-primary btn-sm rounded-full px-4 hover:scale-105 transition-transform duration-300"
+            <Link
+              to="/admin/login"
+              onClick={closeMobileMenu}
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
             >
               Admin Login
             </Link>
           )}
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -98,7 +98,7 @@ const ProductList = () => {
 
   return (
     <div className="min-h-screen container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-serif text-center mb-12">Our Collection</h1>
+      <h1 className="text-4xl font-serif text-gray-900 text-center mb-12">Our Collection</h1>
       
       {/* Filters and Sort */}
       <div className="mb-8">
@@ -106,16 +106,16 @@ const ProductList = () => {
           <div className="flex gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="btn btn-primary"
+              className="btn bg-primary hover:bg-primary-dark text-white border-none"
             >
               <FilterIcon className="h-5 w-5 mr-1" />
-              Filters {activeFilters > 0 && <span className="badge badge-accent ml-1">{activeFilters}</span>}
+              Filters {activeFilters > 0 && <span className="badge bg-white text-primary ml-1">{activeFilters}</span>}
             </button>
             
             {activeFilters > 0 && (
               <button 
                 onClick={clearFilters}
-                className="btn btn-ghost btn-sm"
+                className="btn btn-ghost btn-sm text-gray-700 hover:text-primary"
               >
                 Clear Filters
               </button>
@@ -123,11 +123,11 @@ const ProductList = () => {
           </div>
           
           <div className="flex items-center">
-            <span className="mr-2 font-medium">Sort:</span>
+            <span className="mr-2 font-medium text-gray-700">Sort:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="select select-bordered select-sm"
+              className="select select-bordered select-sm text-gray-700"
             >
               <option value="newest">Newest First</option>
               <option value="price-low">Price: Low to High</option>
@@ -138,13 +138,13 @@ const ProductList = () => {
 
         {/* Filter Panel */}
         {showFilters && (
-          <div className="card bg-base-100 shadow-xl mb-8">
+          <div className="card bg-white shadow-xl mb-8">
             <div className="card-body">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="card-title font-serif">Filter Options</h2>
+                <h2 className="card-title font-serif text-gray-900">Filter Options</h2>
                 <button 
                   onClick={() => setShowFilters(false)}
-                  className="btn btn-circle btn-sm btn-ghost"
+                  className="btn btn-circle btn-sm btn-ghost text-gray-700 hover:text-primary"
                 >
                   <XIcon className="h-5 w-5" />
                 </button>
@@ -154,12 +154,12 @@ const ProductList = () => {
                 {/* Category Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Category</span>
+                    <span className="label-text font-medium text-gray-700">Category</span>
                   </label>
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="select select-bordered"
+                    className="select select-bordered text-gray-700"
                   >
                     <option value="">All Categories</option>
                     <option value="silk">Silk Sarees</option>
@@ -170,12 +170,12 @@ const ProductList = () => {
                 {/* Type Filter */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Type</span>
+                    <span className="label-text font-medium text-gray-700">Type</span>
                   </label>
                   <select
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
-                    className="select select-bordered"
+                    className="select select-bordered text-gray-700"
                     disabled={!selectedCategory}
                   >
                     <option value="">All Types</option>
@@ -188,7 +188,7 @@ const ProductList = () => {
                 {/* Price Range */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Price Range</span>
+                    <span className="label-text font-medium text-gray-700">Price Range</span>
                   </label>
                   <div className="grid grid-cols-2 gap-4">
                     <input
@@ -196,7 +196,7 @@ const ProductList = () => {
                       value={priceRange[0]}
                       onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
                       min="0"
-                      className="input input-bordered"
+                      className="input input-bordered text-gray-700"
                       placeholder="Min"
                     />
                     <input
@@ -204,7 +204,7 @@ const ProductList = () => {
                       value={priceRange[1]}
                       onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                       min={priceRange[0]}
-                      className="input input-bordered"
+                      className="input input-bordered text-gray-700"
                       placeholder="Max"
                     />
                   </div>
@@ -235,46 +235,45 @@ const ProductList = () => {
 
       {/* Product Grid */}
       {loading ? (
-        <div className="flex justify-center py-16">
-          <span className="loading loading-spinner loading-lg text-primary"></span>
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="loading loading-spinner loading-lg text-primary"></div>
         </div>
       ) : products.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16">
-          <div className="text-3xl mb-4">😔</div>
-          <h3 className="text-2xl font-serif mb-2">No Products Found</h3>
-          <p className="text-neutral-content mb-6 text-center max-w-md">
-            We couldn't find any products matching your filters. Please try with different criteria.
-          </p>
+        <div className="text-center py-12">
+          <p className="text-xl text-gray-700 mb-4">No products found matching your criteria</p>
           <button 
             onClick={clearFilters}
-            className="btn btn-primary"
+            className="btn bg-primary hover:bg-primary-dark text-white"
           >
-            Clear Filters
+            Clear All Filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {products.map((product) => (
-            <Link to={`/product/${product._id}`} key={product._id} className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
-              <figure className="relative h-72">
+            <Link 
+              key={product._id}
+              to={`/product/${product._id}`}
+              className="card bg-white hover:shadow-xl transition-shadow duration-300"
+            >
+              <figure className="relative pt-[100%]">
                 <img
                   src={product.images[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 {product.isNew && (
-                  <div className="badge badge-primary absolute top-3 right-3">
-                    NEW
+                  <div className="absolute top-4 right-4">
+                    <span className="badge bg-primary text-white border-none px-3 py-3">New Arrival</span>
                   </div>
                 )}
               </figure>
               <div className="card-body p-4">
-                <h3 className="card-title font-serif">{product.name}</h3>
-                {product.type && <p className="text-neutral-content text-sm">{product.type}</p>}
-                <p className="text-primary font-semibold text-lg mt-1">₹{product.price.toLocaleString('en-IN')}</p>
-                
-                <div className="card-actions mt-3">
-                  <button className="btn btn-primary btn-block">
+                <h3 className="card-title text-lg font-serif text-gray-900 mb-2">{product.name}</h3>
+                <p className="text-sm text-gray-600 mb-2">{product.category} - {product.type}</p>
+                <div className="flex justify-between items-center">
+                  <p className="text-lg font-medium text-primary">₹{product.price.toLocaleString()}</p>
+                  <button className="btn btn-sm bg-primary hover:bg-primary-dark text-white border-none">
                     View Details
                   </button>
                 </div>
