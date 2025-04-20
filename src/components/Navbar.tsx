@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Check admin status whenever the component renders and when localStorage changes

@@ -1,36 +1,29 @@
-import React from 'react';
-
 const Contact = () => {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-serif text-center mb-12">Contact Us</h1>
-      
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-serif text-center mb-8">Contact Us</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-2xl font-serif mb-4">Get in Touch</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold text-lg">Address</h3>
-                <p>123 Saree Street,<br />
-                Textile Market,<br />
-                Mumbai, Maharashtra 400001</p>
+                <h3 className="font-semibold mb-2">Address</h3>
+                <p>123 Fashion Street</p>
+                <p>Chennai, Tamil Nadu 600001</p>
               </div>
-              
               <div>
-                <h3 className="font-semibold text-lg">Phone</h3>
+                <h3 className="font-semibold mb-2">Phone</h3>
                 <p>+91 98765 43210</p>
               </div>
-              
               <div>
-                <h3 className="font-semibold text-lg">Email</h3>
-                <p>info@rdsareecollections.com</p>
+                <h3 className="font-semibold mb-2">Email</h3>
+                <p>info@rdsaree.com</p>
               </div>
-              
               <div>
-                <h3 className="font-semibold text-lg">Business Hours</h3>
-                <p>Monday - Saturday: 10:00 AM - 8:00 PM<br />
-                Sunday: Closed</p>
+                <h3 className="font-semibold mb-2">Business Hours</h3>
+                <p>Monday - Saturday: 10:00 AM - 8:00 PM</p>
+                <p>Sunday: Closed</p>
               </div>
             </div>
           </div>

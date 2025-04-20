@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Product } from '../types';
 
 const Home = () => {
   const [newArrivals, setNewArrivals] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
 
   const fetchNewArrivals = async () => {
     try {
@@ -26,21 +24,8 @@ const Home = () => {
     }
   };
 
-  const fetchProducts = () => {
-    try {
-      const storedProducts = localStorage.getItem('products');
-      if (storedProducts) {
-        const products = JSON.parse(storedProducts);
-        setProducts(products);
-      }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-
   useEffect(() => {
     fetchNewArrivals();
-    fetchProducts();
   }, []);
 
   return (
